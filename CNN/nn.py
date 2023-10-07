@@ -159,15 +159,18 @@ def delete_folder(n):
     raise FileExistsError(f"aucun dossier ne commence par {n}")
 
 def load(n):
-    for folder in os.listdir():
-        if os.path.isdir(folder) and folder.startswith(str(n)):
-            os.rename(folder+"/fcbiases.npy", "fcbiases.npy")
-            os.rename(folder+"/weights.npy", "weights.npy")
-            os.rename(folder+"/cbiases.npy", "cbiases.npy")
-            os.rename(folder+"/kernels.npy", "kernels.npy")
-            os.rename(folder+"/info.npy", "info.npy")
-            return
-    raise FileExistsError(f"aucun dossier ne commence par {n}")
+    if "info.npy" in os.listdir():
+        raise FileExistsError("des fichiers sont déjà chargés")
+    else:
+        for folder in os.listdir():
+            if os.path.isdir(folder) and folder.startswith(str(n)):
+                os.rename(folder+"/fcbiases.npy", "fcbiases.npy")
+                os.rename(folder+"/weights.npy", "weights.npy")
+                os.rename(folder+"/cbiases.npy", "cbiases.npy")
+                os.rename(folder+"/kernels.npy", "kernels.npy")
+                os.rename(folder+"/info.npy", "info.npy")
+                return
+        raise FileExistsError(f"aucun dossier ne commence par {n}")
 
     
 def resave(rename_folder = False):
