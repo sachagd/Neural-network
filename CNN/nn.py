@@ -145,15 +145,18 @@ def delete_file():
         raise FileExistsError("pas de fichiers à supprimer")
 
 def delete_folder(n):
-    folder = os.listdir()[n]
-    b = input(f"le nom du dossier est {folder} êtes-vous sûr de continuer ? (o/n)")
-    if b == "o":
-        os.remove(folder+"/fcbiases.npy")
-        os.remove(folder+"/weights.npy")
-        os.remove(folder+"/cbiases.npy")
-        os.remove(folder+"/kernels.npy")
-        os.remove(folder+"/info.npy")
-        os.rmdir(folder)
+    for folder in os.listdir():
+        if os.path.isdir(folder) and folder.startswith(str(n)):
+            b = input(f"le nom du dossier est {folder} êtes-vous sûr de continuer ? (o/n)")
+            if b == "o":
+                os.remove(folder+"/fcbiases.npy")
+                os.remove(folder+"/weights.npy")
+                os.remove(folder+"/cbiases.npy")
+                os.remove(folder+"/kernels.npy")
+                os.remove(folder+"/info.npy")
+                os.rmdir(folder)
+            return
+    raise FileExistsError(f"aucun dossier ne commence par {n}")
 
 def load(n):
     for folder in os.listdir():
