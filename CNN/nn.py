@@ -11,8 +11,8 @@ import pyautogui
 
 class Layers_c: #fct d'activation (not really) : max_pooling (not coded)
     def __init__(self, kernels, biases, kernels_shape):
-        self.kernels = kernels 
-        self.biases = biases
+        self.kernels = np.array(kernels, dtype=np.float64) 
+        self.biases = np.array(biases, dtype=np.float64)
         self.kernels_shape = kernels_shape
 
     def forward(self, inputs):
@@ -49,8 +49,8 @@ class Reshape:
 
 class First_layers_fc: # fct d'activation : Relu
     def __init__(self, weights, biases):
-        self.weights = weights
-        self.biases = biases
+        self.weights = np.array(weights, dtype=np.float64)
+        self.biases = np.array(biases, dtype=np.float64)
 
     def forward(self, inputs):   
         self.inputs = inputs
