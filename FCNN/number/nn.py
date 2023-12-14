@@ -139,8 +139,6 @@ def train(learning_rate, t_samples, nb, nbbt = 1):
             inputs = np.array([dstrain[choix[i]][1] for i in range(t_samples)]).T
             labels = np.array([[i==dstrain[choix[j]][0] for i in range(10)] for j in range(t_samples)]).T
             output = forpropagation(inputs)
-            print(labels)
-            print(output)
             backpropagation(output, labels, learning_rate)
         acc = accuracy()
         if acc == 0 or best_acc - acc > 0.3:
